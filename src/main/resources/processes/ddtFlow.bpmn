@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:flowable="http://flowable.org/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <process id="ddtFlow" name="Ddt Flow" isExecutable="true">
+    <startEvent id="startEvent1">
+      <outgoing>Flow_1uikb5m</outgoing>
+    </startEvent>
+    <userTask id="Activity_03lgmuq" flowable:assignee="${initiator.username}" jmix:assigneeSource="processVariable" jmix:assigneeValue="initiator">
+      <extensionElements>
+        <jmix:formData type="custom" screenId="custom" />
+      </extensionElements>
+      <incoming>Flow_1uikb5m</incoming>
+      <outgoing>Flow_1gx2uwu</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_1uikb5m" sourceRef="startEvent1" targetRef="Activity_03lgmuq" />
+    <sequenceFlow id="Flow_1gx2uwu" sourceRef="Activity_03lgmuq" targetRef="Event_1ugungc">
+      <extensionElements>
+        <jmix:conditionDetails conditionSource="userTaskOutcome" />
+      </extensionElements>
+    </sequenceFlow>
+    <endEvent id="Event_1ugungc">
+      <incoming>Flow_1gx2uwu</incoming>
+    </endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="ddtFlow">
+      <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+        <omgdc:Bounds x="150" y="150" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uua0gh_di" bpmnElement="Activity_03lgmuq">
+        <omgdc:Bounds x="260" y="128" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ugungc_di" bpmnElement="Event_1ugungc">
+        <omgdc:Bounds x="432" y="150" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1uikb5m_di" bpmnElement="Flow_1uikb5m">
+        <di:waypoint x="186" y="168" />
+        <di:waypoint x="260" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gx2uwu_di" bpmnElement="Flow_1gx2uwu">
+        <di:waypoint x="360" y="168" />
+        <di:waypoint x="432" y="168" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

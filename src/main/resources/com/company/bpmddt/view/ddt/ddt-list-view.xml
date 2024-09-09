@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://DDTListView.title"
+      focusComponent="dDTsDataGrid">
+    <data>
+        <collection id="dDTsDc"
+                    class="com.company.bpmddt.entity.DDT">
+            <fetchPlan extends="_base"/>
+            <loader id="dDTsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from DDT e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="dDTsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="dDTsDataGrid.create"/>
+            <button id="editBtn" action="dDTsDataGrid.edit"/>
+            <button id="removeBtn" action="dDTsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="dDTsDl"/>
+        </hbox>
+        <dataGrid id="dDTsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="dDTsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="number"/>
+                <column property="date"/>
+                <column property="attachedFile"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

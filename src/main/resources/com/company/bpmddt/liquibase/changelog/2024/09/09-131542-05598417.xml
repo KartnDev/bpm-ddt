@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="bpm-ddt">
+        <createTable tableName="DDT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DDT"/>
+            </column>
+            <column name="NUMBER_" type="VARCHAR(255)"/>
+            <column name="DATE_" type="DATE"/>
+            <column name="ATTACHED_FILE" type="VARCHAR(1024)"/>
+            <column name="TRANSPORT_ORDER_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="bpm-ddt">
+        <createTable tableName="TRANSPORT_ORDER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSPORT_ORDER"/>
+            </column>
+            <column name="NUMBER_" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="bpm-ddt">
+        <createIndex indexName="IDX_DDT_TRANSPORT_ORDER" tableName="DDT">
+            <column name="TRANSPORT_ORDER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TRANSPORT_ORDER_ID" baseTableName="DDT"
+                                 constraintName="FK_DDT_ON_TRANSPORT_ORDER" referencedColumnNames="ID"
+                                 referencedTableName="TRANSPORT_ORDER"/>
+    </changeSet>
+</databaseChangeLog>
